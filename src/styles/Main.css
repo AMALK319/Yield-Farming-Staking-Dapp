@@ -1,0 +1,146 @@
+.card-main {
+  position: relative;
+  width: 35%;
+  min-height: 300px;
+  margin-top: 5%;
+  border: none;
+  background: linear-gradient(
+    180deg,
+    rgba(245, 245, 245, 0.69) 0%,
+    rgba(14, 39, 61, 0.78) 100%
+  );
+  border-radius: 20px;
+  padding-top: 40px;
+  text-align: center;
+  
+}
+.card-stake {
+  position: relative;
+  width: 66%;
+  margin: 0 17%;
+  min-height: 100px;
+  border: none;
+  background: linear-gradient(180deg, #476cbe 0%, #ffffff 100%);
+  border-radius: 10px;
+  padding-top: 4%;
+
+  text-align: center;
+  color: white;
+  font-weight: 500;
+  font-size: medium;
+}
+.card-rwd {
+  position: relative;
+  width: 66%;
+  margin: 0 17%;
+  min-height: 100px;
+  background: linear-gradient(180deg, #8163b6 0%, #f5f5f5 96.87%);
+  border: none;
+  border-radius: 10px;
+
+  padding-top: 4%;
+
+  text-align: center;
+  color: white;
+  font-weight: 500;
+  font-size: medium;
+}
+
+.stake {
+  padding-top: 10px;
+  text-align: center;
+  letter-spacing: 0.72px;
+  font-weight: bold;
+  color: #476cbe;
+}
+
+.rwd {
+  padding-top: 10px;
+  text-align: center;
+  letter-spacing: 0.72px;
+  font-weight: bold;
+  color: rgba(116, 80, 177, 0.97);
+}
+
+.card-section {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.middle-title {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+
+  /* identical to box height */
+  display: flex;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  padding-bottom: 0%;
+  background: linear-gradient(91.06deg, #86acff 2.26%, #f5f5f5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-top: 10px;
+}
+
+.middle-parag {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  padding-top: 0%;
+  margin: 0% 10%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  color: #ffffff;
+}
+
+.input-card {
+  position: relative;
+  width: 80%;
+  height: 15%;
+  margin: 0% 10%;
+  padding: 0 2%;
+  border: none;
+  background: white;
+  border-radius: 5px;
+
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+
+  color: #000000;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-card{
+  position: relative;
+  width: 100%;
+  margin: 0 10%;
+  height: 60px;
+  border: none;
+  border-radius: 8px;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+}
+
+.button-stake{
+  background: linear-gradient(180deg, #C9B4ED 0.01%, #7659A7 100%);
+
+}
+
+.button-rwd{
+  background: linear-gradient(180deg, #ABC2F4 0%, #0E49C9 100%);
+}

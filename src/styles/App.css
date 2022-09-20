@@ -1,0 +1,16 @@
+.main{
+    background: url("../assets/defi-bg.jpg");
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.text-bold{
+    color: white;
+    font-weight: bold;
+    margin-right: 2%;
+}
+
+.button{
+    cursor: unset;
+}
