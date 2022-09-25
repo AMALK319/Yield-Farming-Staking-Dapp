@@ -13,7 +13,7 @@ const Main = (props) => {
 
                 <div className="card card-main">
 
-                    <span >Stake USDT Tokens </span>
+                    <span >Stake Tokens </span>
                     <br />
                     {/* <span>My Balance: {props.balance} </span> */}
                     <input type="number" step="0.01" id='amount' className='input-card' placeholder='0' onChange={(e) => setAmount(e.target.value)} />
