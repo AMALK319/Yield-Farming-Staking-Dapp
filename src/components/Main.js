@@ -8,7 +8,7 @@ const Main = (props) => {
         <>
             <br />
             <span className="middle-title">Welcome To</span>
-            <span className='middle-parag'>Our yield farming decentralized application. </span>
+            <span className='middle-parag'>Our yield farming platform EtherFarm. </span>
             <div className='card-section'>
 
                 <div className="card card-main">
