@@ -20,7 +20,7 @@ import LogoImg from '../../assets/logo.PNG';
 function Navbar(props) {
 
   const handleAddressViewing = (address) => {
-    return address.substring(0, 6) + "..." + address.substring(address.length - 7, address.length - 1);
+    return address.substring(0, 6) + "..." + address.substring(address.length - 7, address.length );
  }
 
   return (

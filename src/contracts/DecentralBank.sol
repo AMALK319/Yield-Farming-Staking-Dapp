@@ -1,60 +1,68 @@
 pragma solidity >0.8.16;
 
-import "./Tether.sol";
-import "./RWD.sol";
+import "./Token.sol";
 
 contract DecentralBank {
-    address public owner;
-    string public name = "Decentral Bank";
-    Tether public tether;
-    RWD public rwd;
+    Token private token;
 
-    address[] public stackers;
-    mapping(address => uint256) public stackingBalance;
-    mapping(address => bool) public hasStacked;
-    mapping(address => bool) public isStacking;
+    mapping(address => uint256) public etherBalanceOf;
+    mapping(address => uint256) depositStart;
+    mapping(address => bool) isDeposited;
 
-    constructor(RWD _rwd, Tether _tether) {
-        rwd = _rwd;
-        tether = _tether;
-        owner = msg.sender;
+    //events
+    event DepositTokens(
+        address indexed user,
+        uint256 etherAmount,
+        uint256 timeStart
+    );
+    event WithDraw(
+        address indexed user,
+        uint256 etherAmount,
+        uint256 depositTime,
+        uint256 interest
+    );
+
+    constructor(Token _token) {
+        token = _token;
     }
 
-    function stakeTokens(uint256 _amount) public {
-        //require stacking amount to be greater than 0
-        require(_amount > 0, "cannot stake 0 tokens");
+    //depositTokens function
+    function deposit() public payable {
+        require(
+            isDeposited[msg.sender] == false,
+            "Error: deposit already active"
+        );
+        require(msg.value >= 1e16, "Error: deposit must be >= 0.01 eth");
 
-        //tansfer tether tokens to this contact address for staking
-        tether.transferFrom(msg.sender, address(this), _amount);
+        etherBalanceOf[msg.sender] += msg.value;
+        depositStart[msg.sender] += block.timestamp;
+        isDeposited[msg.sender] = true;
 
-        //update stacking balance
-        stackingBalance[msg.sender] += _amount;
-
-        isStacking[msg.sender] = true;
-        hasStacked[msg.sender] = true;
-
-        if (!hasStacked[msg.sender]) {
-            stackers.push(msg.sender);
-        }
+        emit DepositTokens(msg.sender, msg.value, block.timestamp);
     }
 
-    function unstakeTokens() public {
-        uint256 balance = stackingBalance[msg.sender];
-        require(balance > 0, "cannot unstake 0 tokens");
-        tether.transfer(msg.sender, balance);
-        stackingBalance[msg.sender] = 0;
-        isStacking[msg.sender] = false;
-    }
+    //withDraw function
+    function withDraw() public {
+        require(isDeposited[msg.sender] == true, "Error: no previous deposit");
+        uint256 userBalance = etherBalanceOf[msg.sender];
+        uint256 depositTime = block.timestamp - depositStart[msg.sender];
 
-    function issueTokens() public {
-        // require only the owner to issue tokens
-        require(msg.sender == owner, "caller must be the owner");
-        for (uint256 i = 0; i < stackers.length; i++) {
-            address recipient = stackers[i];
-            uint256 balance = stackingBalance[recipient] / 9;
-            if (balance > 0) {
-                rwd.transfer(recipient, balance);
-            }
-        }
+        uint256 interestPerSecond = 31668017 *
+            (etherBalanceOf[msg.sender] / 1e16);
+        uint256 interest = interestPerSecond * depositTime;
+
+        payable(msg.sender).transfer(etherBalanceOf[msg.sender]);
+        token.mint(msg.sender, interest);
+
+        etherBalanceOf[msg.sender] = 0;
+        depositStart[msg.sender] = 0;
+        isDeposited[msg.sender] = false;
+
+        emit WithDraw(
+            msg.sender,
+            userBalance,
+            depositTime,
+            interest
+        );
     }
 }
